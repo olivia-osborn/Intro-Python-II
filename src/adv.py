@@ -24,14 +24,14 @@ earlier adventurers. The only exit is to the south."""),
 
 # Link rooms together
 
-room['outside'].n_to = room['foyer']
-room['foyer'].s_to = room['outside']
-room['foyer'].n_to = room['overlook']
-room['foyer'].e_to = room['narrow']
-room['overlook'].s_to = room['foyer']
-room['narrow'].w_to = room['foyer']
-room['narrow'].n_to = room['treasure']
-room['treasure'].s_to = room['narrow']
+room['outside'].n = room['foyer']
+room['foyer'].s = room['outside']
+room['foyer'].n = room['overlook']
+room['foyer'].e = room['narrow']
+room['overlook'].s = room['foyer']
+room['narrow'].w = room['foyer']
+room['narrow'].n = room['treasure']
+room['treasure'].s = room['narrow']
 
 #
 # Main
@@ -49,24 +49,9 @@ while True:
     print(player.current_location.description)
     direction = input(
         "Which direction would you like to go? (enter n, e, s, or w):")
-    if direction == "n":
-        if player.current_location.n_to is not None:
-            player.current_location = player.current_location.n_to
-        else:
-            print("You cannot go that way! Choose another direction!")
-    elif direction == "e":
-        if player.current_location.e_to is not None:
-            player.current_location = player.current_location.e_to
-        else:
-            print("You cannot go that way! Choose another direction!")
-    elif direction == "s":
-        if player.current_location.s_to is not None:
-            player.current_location = player.current_location.s_to
-        else:
-            print("You cannot go that way! Choose another direction!")
-    elif direction == "w":
-        if player.current_location.w_to is not None:
-            player.current_location = player.current_location.w_to
+    if direction == "n" or "e" or "s" or "w":
+        if player.current_location.direction is not None:
+            player.current_location = player.current_location.direction
         else:
             print("You cannot go that way! Choose another direction!")
     elif direction == "q":
