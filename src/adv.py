@@ -18,7 +18,7 @@ to north. The smell of gold permeates the air.""", ["shield"]),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south.""", ["key", "shield"]),
+earlier adventurers. The only exit is to the south."""),
 }
 
 
@@ -38,14 +38,42 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-jack = Player("Jack", room["outside"], [])
+player = Player("Jack", room["outside"], [])
 
 # Write a loop that:
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
-direction = input(
-    "Which direction would you like to go? (enter n, e, s, or w):")
+while True:
+    print(f"You are currently in the {player.current_location.name}")
+    print(player.current_location.description)
+    direction = input(
+        "Which direction would you like to go? (enter n, e, s, or w):")
+    if direction == "n":
+        if player.current_location.n_to is not None:
+            player.current_location = player.current_location.n_to
+        else:
+            print("You cannot go that way! Choose another direction!")
+    elif direction == "e":
+        if player.current_location.e_to is not None:
+            player.current_location = player.current_location.e_to
+        else:
+            print("You cannot go that way! Choose another direction!")
+    elif direction == "s":
+        if player.current_location.s_to is not None:
+            player.current_location = player.current_location.s_to
+        else:
+            print("You cannot go that way! Choose another direction!")
+    elif direction == "w":
+        if player.current_location.w_to is not None:
+            player.current_location = player.current_location.w_to
+        else:
+            print("You cannot go that way! Choose another direction!")
+    elif direction == "q":
+        print("Thanks for playing!")
+        break
+    else:
+        print("please enter n, e, s, or w to switch rooms, or press q to quit!")
 # If the user enters a cardinal direction, attempt to move to the room there.
 
 # Print an error message if the movement isn't allowed.
