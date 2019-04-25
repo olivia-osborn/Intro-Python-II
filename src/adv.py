@@ -96,7 +96,7 @@ def item_handler(items):
                 get_item(item_name)
                 item_handler(items)
             elif cmd == "drop":
-                get_item(item_name)
+                drop_item(item_name)
                 item_handler(items)
             else:
                 print("Type in a valid command: 'get', 'drop', or press 'enter' to skip")
@@ -129,6 +129,11 @@ while True:
             player.current_location = player.current_location.w_to
         else:
             print("You cannot go that way! Choose another direction!")
+    elif "drop" in direction:
+        split_response = direction.split()
+        cmd = split_response[0]
+        item_name = split_response[1]
+        drop_item(item_name)
     elif direction == "q":
         print("Thanks for playing!")
         break
