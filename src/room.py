@@ -7,7 +7,13 @@ class Room:
         self.name = name
         self.description = description
         self.item_list = []
-        self.n = None
-        self.e = None
-        self.s = None
-        self.w = None
+        self.n_to = None
+        self.e_to = None
+        self.s_to = None
+        self.w_to = None
+
+    def add_item(self, item):
+        self.item_list.append(item)
+
+    def remove_item(self, item):
+        self.item_list.remove(item)
