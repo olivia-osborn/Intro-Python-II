@@ -63,22 +63,44 @@ player = Player("Jack", room["outside"], [])
 possibleDirections = ["n", "e", "s", "w"]
 
 
+def drop_item(item):
+    if item in player.item_bag:
+        player.drop_item(item)
+        player.current_location.add_item(item)
+        print(f"You dropped {item}!")
+    else:
+        print("That item is not in your bag")
+
+
+def get_item(item):
+    if item in player.current_location.item_list:
+        player.current_location.remove_item(item)
+        player.pick_up(item)
+        print(f"You picked up {item}! (type 'drop item' to drop this item")
+    else:
+        print("That item is not in the room")
+
+
 def item_handler(items):
     if len(items) > 0:
-        print("You find the following items in the room:")
+        print("You find the following items in the room: ")
         for i in items:
             print(i)
-        item_response = input("Enter the item you want")
-        if item_response in items:
-            player.current_location.remove_item(item_response)
-            player.pick_up(item_response)
-            item_handler(items)
-            print(f"You picked up {item_response}!")
-        else:
-            print("no item named that")
-            item_handler(items)
-    else:
-        print("no more items!")
+        item_response = input(
+            "Type 'get item' to pick up item, or press 'enter' to skip: ")
+        if len(item_response) > 0:
+            split_response = item_response.split()
+            cmd = split_response[0]
+            item_name = split_response[1]
+            if cmd == "get":
+                get_item(item_name)
+                item_handler(items)
+            elif cmd == "drop":
+                get_item(item_name)
+                item_handler(items)
+            else:
+                print("Type in a valid command: 'get', 'drop', or press 'enter' to skip")
+                item_handler(items)
 
 
 while True:

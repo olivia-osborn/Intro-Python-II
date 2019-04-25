@@ -10,3 +10,6 @@ class Player:
 
     def pick_up(self, item):
         self.item_bag.append(item)
+
+    def drop_item(self, item):
+        self.item_bag.remove(item)
